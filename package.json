@@ -31,5 +31,8 @@
   "dependencies": {
     "aws-sdk": "2.3.7",
     "dotenv": "2.0.0"
+  },
+  "devDependencies": {
+    "jshint": "2.9.2"
   }
 }
