@@ -26,7 +26,6 @@ With SNS demo you can:
    runned and accessible from Internet)
 5. Delete SNS Topic and all subscription: `npm run sns5` or `node sns/5_delete_topic.js`
 
-
 ## SQS
 
 With SQS demo you can:
@@ -36,3 +35,12 @@ With SQS demo you can:
 2. Run example app which will be receive messages: `npm run sqs2` or `node sns/2_run_example_worker.js` (worker).
 3. Send example message: `npm run sqs3` or `node sns/3_send_message.js` (Important: worker from #2 have to be run)
 4. Delete SQS Queue: `npm run sqs4` or `node sns/4_delete_queue.js`
+
+## Kinesis
+
+With Kinesis demo you can:
+
+1. Create Kinesis Stream: `npm run kinesis1` or `node sns/1_create_stream.js`.
+2. Run example app which will be receive records: `npm run kinesis2` or `node sns/2_run_example_worker.js` (worker).
+3. Put example record: `npm run kinesis3` or `node sns/3_put_record.js` (Important: worker from #2 have to be run)
+4. Delete Kinesis Stream: `npm run kinesis4` or `node sns/4_delete_stream.js`

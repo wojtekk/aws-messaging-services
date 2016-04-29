@@ -12,7 +12,7 @@ const queueUrl = process.env.SQS_QUEUE_URL;
 
 const message = utils.createFakeMessage();
 
-var params = {
+const params = {
   MessageBody: JSON.stringify(message.body),
   QueueUrl: queueUrl,
   DelaySeconds: 0

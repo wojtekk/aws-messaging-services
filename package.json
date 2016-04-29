@@ -17,6 +17,11 @@
     "sqs2": "node sqs/2_run_example_worker.js",
     "sqs3": "node sqs/3_send_message.js",
     "sqs4": "node sqs/4_delete_queue.js",
+
+    "kinesis1": "node sns/1_create_stream.js",
+    "kinesis2": "node sns/2_run_example_worker.js",
+    "kinesis3": "node sns/3_put_record.js",
+    "kinesis4": "node sns/4_delete_stream.js"
   },
   "repository": {
     "type": "git",
