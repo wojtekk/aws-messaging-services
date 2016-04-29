@@ -27,5 +27,9 @@
   "bugs": {
     "url": "https://github.com/wojtekk/aws-messaging-services/issues"
   },
-  "homepage": "https://github.com/wojtekk/aws-messaging-services#readme"
+  "homepage": "https://github.com/wojtekk/aws-messaging-services#readme",
+  "dependencies": {
+    "aws-sdk": "2.3.7",
+    "dotenv": "2.0.0"
+  }
 }
