@@ -6,11 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
+
     "sns1": "node sns/1_create_topic.js",
     "sns2": "node sns/2_run_example_app.js",
     "sns3": "node sns/3_subscribe_topic.js",
     "sns4": "node sns/4_publish_message.js",
-    "sns5": "node sns/5_delete_topic.js"
+    "sns5": "node sns/5_delete_topic.js",
+
+    "sqs1": "node sqs/1_create_queue.js",
+    "sqs2": "node sqs/2_run_example_worker.js",
+    "sqs3": "node sqs/3_send_message.js",
+    "sqs4": "node sqs/4_delete_queue.js",
   },
   "repository": {
     "type": "git",

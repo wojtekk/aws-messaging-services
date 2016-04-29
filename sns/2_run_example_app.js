@@ -6,7 +6,7 @@ require('dotenv').load({silent: true});
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const utils = require('./utils');
+const utils = require('./../libs/utils');
 
 const port = process.env.PORT || 8080;
 const topicArn = process.env.SNS_TOPIC_ARN
@@ -19,13 +19,13 @@ app.use(bodyParser.json({type: '*/*'}));
 function processMessage(id, subject, message) {
   return new Promise((resolve) => {
     console.log('New message - processing');
-    console.log(' Id:', id);
+    console.log('  MessageId:', id);
     if (subject) {
-      console.log(' Subject:', subject);
+      console.log('  Subject:', subject);
     }
-    console.log(' Body:', message);
+    console.log('  Body:', message);
 
-    // Do what you need
+    // Do something cool ...
 
     resolve();
   });

@@ -28,6 +28,17 @@ function createLocalTunnel(port, appUrl) {
   });
 }
 
+function createFakeMessage() {
+  const actions = ['created', 'modified', 'deleted'];
+  const randomAction = actions[Math.floor(Math.random() * actions.length)]
+  const randomElementId = Math.floor(Math.random() * 10000);
+  return {
+    subject: `Element ${randomAction}`,
+    body: {"action": randomAction, "elementId": randomElementId}
+  };
+}
+
 module.exports = {
-  createLocalTunnel
+  createLocalTunnel,
+  createFakeMessage
 };
