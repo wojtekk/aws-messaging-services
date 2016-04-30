@@ -1,8 +1,6 @@
-'use strict';
-
 console.log('Kinesis step 2: Run example worker');
 
-require('dotenv').load({silent: true});
+require('dotenv').load({ silent: true });
 
 const AWS = require('aws-sdk');
 const kinesis = new AWS.Kinesis();
@@ -25,7 +23,7 @@ function pollStreamForRecords(shardIterator) {
   console.log('Waiting for records ...');
   const getRecordsParams = {
     ShardIterator: shardIterator,
-    Limit: 1
+    Limit: 1,
   };
   let lastSequenceNumber;
   kinesis.getRecords(getRecordsParams).promise()
@@ -37,26 +35,24 @@ function pollStreamForRecords(shardIterator) {
       const record = res.Records[0];
       lastSequenceNumber = record.SequenceNumber;
       return processRecord(record)
-        .then(() => {
-          return res.NextShardIterator;
-        });
+        .then(() => res.NextShardIterator);
     })
-    .then((shardIterator) => pollStreamForRecords(shardIterator))
-    .catch((err)=> {
-      console.error("ERROR - Stack trace\n", err.stack);
-      console.warn('Skipping record - SequenceNumber:', lastSequenceNumber)
+    .then((nextShardIterator) => pollStreamForRecords(nextShardIterator))
+    .catch((err) => {
+      console.error('ERROR - Stack trace\n', err.stack);
+      console.warn('Skipping record - SequenceNumber:', lastSequenceNumber);
 
-      let params = {
+      const getShardIteratorParams = {
         ShardId: 'shardId-000000000000',
         ShardIteratorType: 'AFTER_SEQUENCE_NUMBER',
         StartingSequenceNumber: lastSequenceNumber,
-        StreamName: streamName
+        StreamName: streamName,
       };
 
-      return kinesis.getShardIterator(params).promise()
+      return kinesis.getShardIterator(getShardIteratorParams).promise()
         .then((res) => pollStreamForRecords(res.ShardIterator))
-        .catch((err)=> {
-          console.error("ERROR - Stack trace\n", err.stack);
+        .catch((gshErr) => {
+          console.error('ERROR - Stack trace\n', gshErr.stack);
           process.exit(1);
         });
     });
@@ -65,12 +61,12 @@ function pollStreamForRecords(shardIterator) {
 const params = {
   ShardId: 'shardId-000000000000',
   ShardIteratorType: 'TRIM_HORIZON',
-  StreamName: streamName
+  StreamName: streamName,
 };
 
 kinesis.getShardIterator(params).promise()
   .then((res) => pollStreamForRecords(res.ShardIterator))
-  .catch((err)=> {
-    console.error("ERROR - Stack trace\n", err.stack);
+  .catch((err) => {
+    console.error('ERROR - Stack trace\n', err.stack);
     process.exit(1);
   });

@@ -1,8 +1,6 @@
-'use strict';
-
 console.log('SQS step 1: Create queue');
 
-require('dotenv').load({silent: true});
+require('dotenv').load({ silent: true });
 
 const AWS = require('aws-sdk');
 const sqs = new AWS.SQS();
@@ -16,8 +14,8 @@ const params = {
     MaximumMessageSize: 262144, // 256 KB
     MessageRetentionPeriod: 345600, // 4 days
     ReceiveMessageWaitTimeSeconds: 0,
-    VisibilityTimeout: 30
-  }
+    VisibilityTimeout: 30,
+  },
 };
 
 sqs.createQueue(params).promise()
@@ -28,7 +26,7 @@ sqs.createQueue(params).promise()
 
     return res.QueueUrl;
   })
-  .catch((err)=> {
-    console.error("ERROR - Stack trace\n", err.stack);
+  .catch((err) => {
+    console.error('ERROR - Stack trace\n', err.stack);
     process.exit(1);
   });

@@ -1,8 +1,6 @@
-'use strict';
-
 console.log('SNS step 1: Create Topic');
 
-require('dotenv').load({silent: true});
+require('dotenv').load({ silent: true });
 
 const AWS = require('aws-sdk');
 const sns = new AWS.SNS();
@@ -10,23 +8,23 @@ const sns = new AWS.SNS();
 const topicName = process.env.SNS_TOPIC_NAME;
 
 const deliveryPolicy = {
-  "http": {
-    "defaultHealthyRetryPolicy": {
-      "minDelayTarget": 20,
-      "maxDelayTarget": 20,
-      "numRetries": 3,
-      "numMaxDelayRetries": 0,
-      "numNoDelayRetries": 0,
-      "numMinDelayRetries": 0,
-      "backoffFunction": "linear"
+  http: {
+    defaultHealthyRetryPolicy: {
+      minDelayTarget: 20,
+      maxDelayTarget: 20,
+      numRetries: 3,
+      numMaxDelayRetries: 0,
+      numNoDelayRetries: 0,
+      numMinDelayRetries: 0,
+      backoffFunction: 'linear',
     },
-    "disableSubscriptionOverrides": false
-  }
+    disableSubscriptionOverrides: false,
+  },
 };
 
 function createTopic() {
   const params = {
-    Name: topicName
+    Name: topicName,
   };
 
   return sns.createTopic(params).promise()
@@ -38,20 +36,20 @@ function createTopic() {
 }
 
 function setDeliveryPolicy(topicArn) {
-  var params = {
+  const params = {
     AttributeName: 'DeliveryPolicy',
     TopicArn: topicArn,
-    AttributeValue: JSON.stringify(deliveryPolicy)
+    AttributeValue: JSON.stringify(deliveryPolicy),
   };
   return sns.setTopicAttributes(params).promise()
     .then(() => {
-      console.info(`HTTP DeliveryPolicy set successful`);
+      console.info('HTTP DeliveryPolicy set successful');
     });
 }
 
 createTopic()
   .then(setDeliveryPolicy)
   .catch((err) => {
-    console.error("ERROR - Stack trace:\n", err.stack);
+    console.error('ERROR - Stack trace:\n', err.stack);
     process.exit(1);
   });

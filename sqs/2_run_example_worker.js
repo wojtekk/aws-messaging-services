@@ -1,8 +1,6 @@
-'use strict';
-
 console.log('SQS step 2: Run example worker');
 
-require('dotenv').load({silent: true});
+require('dotenv').load({ silent: true });
 
 const AWS = require('aws-sdk');
 const sqs = new AWS.SQS();
@@ -13,7 +11,7 @@ const receiveMessageParams = {
   QueueUrl: queueUrl,
   MaxNumberOfMessages: 1,
   VisibilityTimeout: 60,
-  WaitTimeSeconds: 5
+  WaitTimeSeconds: 5,
 };
 
 function processMessage(message) {
@@ -29,12 +27,12 @@ function processMessage(message) {
 }
 
 function deleteMessage(message) {
-  var params = {
+  const params = {
     QueueUrl: queueUrl,
-    ReceiptHandle: message.ReceiptHandle
+    ReceiptHandle: message.ReceiptHandle,
   };
   return sqs.deleteMessage(params).promise()
-    .then((res) => {
+    .then(() => {
       console.info('Message deleted');
     });
 }
@@ -52,8 +50,8 @@ function pollQueueForMessages() {
         .then(() => deleteMessage(message));
     })
     .then(() => pollQueueForMessages())
-    .catch((err)=> {
-      console.error("ERROR - Stack trace\n", err.stack);
+    .catch((rmErr) => {
+      console.error('ERROR - Stack trace\n', rmErr.stack);
       pollQueueForMessages();
     });
 }

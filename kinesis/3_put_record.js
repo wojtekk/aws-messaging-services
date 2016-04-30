@@ -1,8 +1,6 @@
-'use strict';
-
 console.log('Kinesis step 3: Send messages');
 
-require('dotenv').load({silent: true});
+require('dotenv').load({ silent: true });
 
 const AWS = require('aws-sdk');
 const kinesis = new AWS.Kinesis();
@@ -15,7 +13,7 @@ const message = utils.createFakeMessage();
 const params = {
   Data: JSON.stringify(message.body),
   PartitionKey: '1',
-  StreamName: streamName
+  StreamName: streamName,
 };
 
 kinesis.putRecord(params).promise()
@@ -23,7 +21,7 @@ kinesis.putRecord(params).promise()
     console.info('Record put');
     console.info('  SequenceNumber:', res.SequenceNumber);
   })
-  .catch((err)=> {
-    console.error("ERROR - Stack trace\n", err.stack);
+  .catch((err) => {
+    console.error('ERROR - Stack trace\n', err.stack);
     process.exit(1);
   });

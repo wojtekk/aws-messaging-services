@@ -1,5 +1,3 @@
-'use strict';
-
 const localtunnel = require('localtunnel');
 const urlParser = require('url');
 
@@ -11,12 +9,12 @@ function createLocalTunnel(port, appUrl) {
 
   const appDomain = urlParser.parse(appUrl).host;
   if (appDomain.split('.')[1] !== 'localtunnel') {
-    console.error('Set proper: SNS_HTTP_APP_URL (f.ex. in file .env) if you want to use LocalTunnel.');
+    console.error('Set proper: SNS_HTTP_APP_URL (in file .env) if you want to use LocalTunnel.');
   }
   const tunnelSubdomain = appDomain.split('.').shift();
 
   const tunnelOpts = {
-    subdomain: tunnelSubdomain
+    subdomain: tunnelSubdomain,
   };
   localtunnel(port, tunnelOpts, (err, tunnel) => {
     if (err) {
@@ -30,15 +28,15 @@ function createLocalTunnel(port, appUrl) {
 
 function createFakeMessage() {
   const actions = ['created', 'modified', 'deleted'];
-  const randomAction = actions[Math.floor(Math.random() * actions.length)]
+  const randomAction = actions[Math.floor(Math.random() * actions.length)];
   const randomElementId = Math.floor(Math.random() * 10000);
   return {
     subject: `Element ${randomAction}`,
-    body: {"action": randomAction, "elementId": randomElementId}
+    body: { action: randomAction, elementId: randomElementId },
   };
 }
 
 module.exports = {
   createLocalTunnel,
-  createFakeMessage
+  createFakeMessage,
 };

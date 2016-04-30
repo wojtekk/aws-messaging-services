@@ -1,8 +1,6 @@
-'use strict';
-
 console.log('SQS step 3: Send message');
 
-require('dotenv').load({silent: true});
+require('dotenv').load({ silent: true });
 
 const AWS = require('aws-sdk');
 const sqs = new AWS.SQS();
@@ -15,7 +13,7 @@ const message = utils.createFakeMessage();
 const params = {
   MessageBody: JSON.stringify(message.body),
   QueueUrl: queueUrl,
-  DelaySeconds: 0
+  DelaySeconds: 0,
 };
 
 sqs.sendMessage(params).promise()
@@ -23,7 +21,7 @@ sqs.sendMessage(params).promise()
     console.info('Message sent');
     console.info('  MessageId:', res.MessageId);
   })
-  .catch((err)=> {
-    console.error("ERROR - Stack trace\n", err.stack);
+  .catch((err) => {
+    console.error('ERROR - Stack trace\n', err.stack);
     process.exit(1);
   });
