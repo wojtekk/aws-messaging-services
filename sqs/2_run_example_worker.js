@@ -10,7 +10,7 @@ const queueUrl = process.env.SQS_QUEUE_URL;
 const receiveMessageParams = {
   QueueUrl: queueUrl,
   MaxNumberOfMessages: 1,
-  VisibilityTimeout: 60,
+  VisibilityTimeout: 10,
   WaitTimeSeconds: 5,
 };
 
