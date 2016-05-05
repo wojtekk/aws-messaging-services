@@ -10,11 +10,16 @@ const queueName = process.env.SQS_QUEUE_NAME;
 const params = {
   QueueName: queueName,
   Attributes: {
-    DelaySeconds: 0,
-    MaximumMessageSize: 262144, // 256 KB
-    MessageRetentionPeriod: 345600, // 4 days
-    ReceiveMessageWaitTimeSeconds: 0,
-    VisibilityTimeout: 30,
+    DelaySeconds: '0', // The amount of time to delay the first delivery of all
+                       // messages added to this queue.
+    MaximumMessageSize: '262144', // 256 KB - Maximum message size (in bytes) accepted by SQS.
+    MessageRetentionPeriod: '345600', // 4 days - The amount of time that Amazon SQS will retain
+                                      // a message if it does not get deleted.
+    ReceiveMessageWaitTimeSeconds: '0', // The maximum amount of time that a long polling receive
+                                        // call will wait for a message to become available before
+                                        // returning an empty response.
+    VisibilityTimeout: '30', // The length of time (in seconds) that a message received from
+                             // a queue will be invisible to other receiving components.
   },
 };
 
